@@ -1,14 +1,14 @@
 library flutter_svg_provider;
 
-import 'dart:io';
 import 'dart:async';
-import 'dart:ui' as ui show Image, Picture;
+import 'dart:io';
+import 'dart:ui' as ui show Image;
 
-import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
-import 'package:http/http.dart' as http;
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:http/http.dart' as http;
 
 /// Get svg string.
 typedef SvgStringGetter = Future<String?> Function(SvgImageKey key);
@@ -20,7 +20,7 @@ enum SvgSource {
   network,
 }
 
-/// Rasterizes given svg picture for displaying in [Image] widget:
+/// Rasterize given svg picture for displaying in [Image] widget:
 ///
 /// ```dart
 /// Image(
@@ -70,7 +70,8 @@ class Svg extends ImageProvider<SvgImageKey> {
     final Color color = this.color ?? Colors.transparent;
     final double scale = this.scale ?? configuration.devicePixelRatio ?? 1.0;
     final double logicWidth = size?.width ?? configuration.size?.width ?? 100;
-    final double logicHeight = size?.height ?? configuration.size?.height ?? 100;
+    final double logicHeight =
+        size?.height ?? configuration.size?.height ?? 100;
 
     return SynchronousFuture<SvgImageKey>(
       SvgImageKey(
@@ -85,7 +86,6 @@ class Svg extends ImageProvider<SvgImageKey> {
     );
   }
 
-  @override
   ImageStreamCompleter load(SvgImageKey key, nil) {
     return OneFrameImageStreamCompleter(_loadAsync(key));
   }
@@ -125,7 +125,7 @@ class Svg extends ImageProvider<SvgImageKey> {
     );
   }
 
-  // Note: == and hashCode not overrided as changes in properties
+  // Note: == and hashCode not override as changes in properties
   // (width, height and scale) are not observable from the here.
   // [SvgImageKey] instances will be compared instead.
   @override
